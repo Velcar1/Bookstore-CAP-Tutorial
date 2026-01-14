@@ -5,17 +5,17 @@ annotate service.Books with @(
         Data : [
             {
                 $Type : 'UI.DataField',
-                Label : 'publishedAt',
+                Label : 'Published At',
                 Value : publishedAt,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'pages',
+                Label : 'Pages',
                 Value : pages,
             },
             {
                 $Type : 'UI.DataField',
-                Label : 'price',
+                Label : 'Price',
                 Value : price,
             },
             {
@@ -23,6 +23,12 @@ annotate service.Books with @(
                 Value : status_code,
                 Criticality : status.criticaly,
                 CriticalityRepresentation : #WithIcon,
+                Label : 'Status',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : currency_code,
+                Label : 'Currency',
             },
         ],
     },
@@ -49,38 +55,38 @@ annotate service.Books with @(
     UI.LineItem : [
         {
             $Type : 'UI.DataField',
-            Label : 'title',
+            Label : 'Title',
             Value : title,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'genre',
+            Label : 'Genre',
             Value : genre,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'pages',
+            Label : 'Pages',
             Value : pages,
         },
         {
             $Type : 'UI.DataField',
-            Label : 'price',
+            Label : 'Price',
             Value : price,
         },
         {
             $Type : 'UI.DataField',
             Value : publishedAt,
-            Label : 'publishedAt',
+            Label : 'Published At',
         },
         {
             $Type : 'UI.DataField',
             Value : stock,
-            Label : 'stock',
+            Label : 'Stock',
         },
         {
             $Type : 'UI.DataField',
             Value : status_code,
-            Label : 'status_code',
+            Label : 'Status',
             Criticality : status.criticaly,
         },
     ],
@@ -151,17 +157,17 @@ annotate service.Chapters with @(
         {
             $Type : 'UI.DataField',
             Value : title,
-            Label : 'title',
+            Label : 'Title',
         },
         {
             $Type : 'UI.DataField',
             Value : pages,
-            Label : 'pages',
+            Label : 'Pages',
         },
         {
             $Type : 'UI.DataField',
             Value : number,
-            Label : 'number',
+            Label : 'Number',
         },
     ]
 );
@@ -191,4 +197,8 @@ annotate service.BookStatus with {
         Common.Text : displayText,
         Common.Text.@UI.TextArrangement : #TextOnly,
 )};
+
+annotate service.Books with {
+    currency @Common.ValueListWithFixedValues : true
+};
 
