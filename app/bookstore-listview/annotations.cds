@@ -89,6 +89,11 @@ annotate service.Books with @(
             Label : 'Status',
             Criticality : status.criticaly,
         },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstorageService.AddStock',
+            Label : 'AddStock',
+        },
     ],
     UI.SelectionFields : [
         status_code,
@@ -127,6 +132,23 @@ annotate service.Books with @(
             },
         ],
     },
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstorageService.AddStock',
+            Label : 'AddStock',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstorageService.ChangePublishDate',
+            Label : 'ChangePublishDate',
+        },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstorageService.ChangeStatus',
+            Label : 'ChangeStatus',
+        },
+    ],
 );
 
 annotate service.Books with {
