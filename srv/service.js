@@ -7,6 +7,10 @@ module.exports = class BookstorageService extends cds.ApplicationService {
 
     const { Books } = cds.entities('BookstorageService')
 
+    this.on("addDiscount", async () => {
+      await UPDATE(Books).set({ price: { func: 'ROUND', args: [{ xpr: [{ ref: ['price'] }, '*', { val: 0.9 }] }, {val: 2}] } })
+    })
+
     this.on("AddStock", Books, async (req) => {
       const bookID = req.params[0].ID
       await UPDATE(Books).set({ stock: { '+=': 1 } }).where({ ID: bookID })

@@ -22,6 +22,9 @@ service BookstorageService {
                                  }) newStatus: String);
         };
 
+        @(Common.SideEffects: {TargetEntities: ['/BookstorageService.EntityContainer/Books']})
+        action addDiscount();
+
     entity Authors    as projection on db.Authors;
     entity Chapters   as projection on db.Chapters;
     entity BookStatus as projection on db.BookStatus;

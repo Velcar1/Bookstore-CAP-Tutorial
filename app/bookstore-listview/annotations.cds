@@ -94,6 +94,11 @@ annotate service.Books with @(
             Action : 'BookstorageService.AddStock',
             Label : 'AddStock',
         },
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'BookstorageService.EntityContainer/addDiscount',
+            Label : '10% Discount',
+        },
     ],
     UI.SelectionFields : [
         status_code,
