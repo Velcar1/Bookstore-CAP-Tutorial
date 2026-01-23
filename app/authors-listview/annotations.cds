@@ -14,6 +14,12 @@ annotate service.Authors with @(
             ID : 'aaa',
             Target : '@UI.FieldGroup#aaa',
         },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : 'Books Information',
+            ID : 'BooksInformation',
+            Target : '@UI.FieldGroup#BooksInformation',
+        },
     ],
     UI.FieldGroup #aaa : {
         $Type : 'UI.FieldGroupType',
@@ -22,6 +28,16 @@ annotate service.Authors with @(
                 $Type : 'UI.DataField',
                 Value : name,
                 Label : 'name',
+            },
+        ],
+    },
+    UI.FieldGroup #BooksInformation : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : bookCounts,
+                Label : 'bookCounts',
             },
         ],
     },

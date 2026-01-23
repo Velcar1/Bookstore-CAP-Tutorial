@@ -8,7 +8,7 @@ module.exports = class BookstorageService extends cds.ApplicationService {
     const { Books } = cds.entities('BookstorageService')
 
     this.on("addDiscount", async () => {
-      await UPDATE(Books).set({ price: { func: 'ROUND', args: [{ xpr: [{ ref: ['price'] }, '*', { val: 0.9 }] }, {val: 2}] } })
+      await UPDATE(Books).set({ price: { func: 'ROUND', args: [{ xpr: [{ ref: ['price'] }, '*', { val: 0.9 }] }, { val: 2 }] } })
     })
 
     this.on("AddStock", Books, async (req) => {
@@ -45,6 +45,20 @@ module.exports = class BookstorageService extends cds.ApplicationService {
       console.log('AFTER READ')
     })
 
+    const { Authors } = cds.entities('BookstorageService')
+
+    this.after('READ', Authors, async (authors) => {
+      const ids = authors.map(author => author.ID)
+      const bookCounts = await SELECT.from(Books)
+        .columns('author_ID', { func: 'count' })
+        .where({ author_ID: { in: ids } })
+        .groupBy('author_ID');
+      for (const author of authors) {
+        const bookCount = bookCounts.find(bookCount => bookCount.author_ID = author.ID)
+        author.bookCounts = bookCount.count
+      }
+      console.log(bookCounts) 
+    })
 
     return super.init()
   }

@@ -53,10 +53,11 @@ entity BookStatus {
 
 
 entity Authors : cuid, managed {
-    name        : String;
-    attachments : Composition of many Attachments; 
-    books       : Association to many Books
-                      on books.author = $self;
+            name        : String;
+            attachments : Composition of many Attachments;
+    virtual bookCounts   : Integer;
+            books       : Association to many Books
+                              on books.author = $self;
 }
 
 entity Chapters : cuid, managed {
