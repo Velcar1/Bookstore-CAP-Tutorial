@@ -1,7 +1,21 @@
 using {tutorial.db as db} from '../db/schema';
 
 service BookstorageService {
+            @(restrict: [
+        {
+            grant: [
+                'READ',
+                'WRITE'
+            ],
+            to   : 'admin'
+        },
+        {
+            grant: ['READ'],
+            to   : 'authenticated-user'
+        }
+    ])
     entity Books      as projection on db.Books
+
         actions {
             @(Common.SideEffects: {TargetProperties: ['stock']})
             action AddStock();
@@ -9,7 +23,7 @@ service BookstorageService {
             @(Common.SideEffects: {TargetEntities: ['in']})
             action ChangeStatus( @(Common: {
                                      ValueListWithFixedValues: true,
-                                     Label : 'New status',
+                                     Label                   : 'New status',
                                      ValueList               : {
                                          $Type         : 'Common.ValueListType',
                                          CollectionPath: 'BookStatus',
@@ -22,8 +36,9 @@ service BookstorageService {
                                  }) newStatus: String);
         };
 
-        @(Common.SideEffects: {TargetEntities: ['/BookstorageService.EntityContainer/Books']})
-        action addDiscount();
+    @(Common.SideEffects: {TargetEntities: ['/BookstorageService.EntityContainer/Books']})
+    @(requires: 'user-that-can-call-actions')
+    action addDiscount();
 
     entity Authors    as projection on db.Authors;
     entity Chapters   as projection on db.Chapters;
@@ -32,4 +47,8 @@ service BookstorageService {
 }
 
 annotate BookstorageService.Books with @odata.draft.enabled;
-annotate BookstorageService.Authors with @odata.draft.enabled;
+
+annotate BookstorageService.Authors with @(
+    odata.draft.enabled,
+    requires: 'admin'
+)
